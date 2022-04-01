@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col col-xl-9">
+        {{#result}}
+            <h3>{{title}}</h3>
+            <p>{{createdAt}}</p>
+            <p>Редактор: <a href="{{link}}">{{link}}</a></p>
+            <div class="row">
+                <div class="col-xl-3 col-12">
+                {{#image}}<img class="img-fluid mb-2 me-2" src="/{{path}}">{{/image}}
+                </div>
+                <div class="col-12 col-xl-9">{{desc}}</div>
+            </div>
+            <p>{{{getLineBreak text}}}</p>
+            <hr>
+            {{#if gallery}}
+                <p>Галерея</p>
+                {{#gallery}}
+                    <img class="img-thumbnail" src="/{{path}}" width="200" height="200">
+                {{/gallery}}
+                <hr>
+            {{/if}}
+
+            {{#if comments}}
+                <div>
+                    <h5>Комментарии</h5>
+                    {{#comments}}
+                        <div class="my-2">
+                            <h6>{{author}}</h6>
+                            <p>{{text}}</p>
+                        </div>
+                    {{/comments}}
+                </div>
+                <hr>
+            {{/if}}
+            <div>
+                <h4>Добавить комментарий</h4>
+                <form name="addComment" action="/posts/comments/{{_id}}" method="post">
+                    <div class="my-2">
+                        <label class="form-label" for="authorOfComment">Имя автора</label>
+                        <input class="form-control" type="text" id="authorOfComment" name="author" placeholder="Иван Иванов">
+                    </div>
+                    <div class="my-2">
+                        <label class="form-label" for="textOfComment">
+                            Текст комментария
+                        </label>
+                        <textarea class="form-control" name="text" id="textOfComment"></textarea>
+                    </div>
+                    <div class="my-2">
+                        <input type="submit" class="btn btn-primary" value="Отправить">
+                    </div>
+                </form>
+            </div>
+
+        {{/result}}
+    </div>
+    <div class="col col-xl-3">
+        {{>sidebar}}
+    </div>
+</div>

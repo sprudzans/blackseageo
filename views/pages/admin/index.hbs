@@ -1,0 +1,31 @@
+<div class="row"> 
+    <div class="col col-xl-4">
+        {{>menu/admin}}
+    </div>
+    <div class="col col-xl-8" id="field">
+        <h4>Данные пользователя</h4>
+        {{#result}}
+            <form name="updUser" action="/admin/users/update/{{username}}" method="post">
+                <div class="my-2">
+                    <label class="form-label" for="usernameOfUser">Имя пользователя</label>
+                    <input class="form-control" id="usernameOfUser" type="text" name="username" value="{{username}}">
+                </div>
+                <div class="my-2">
+                    <label class="form-label" for="socialOfUser">Социальная сеть</label>
+                    <input class="form-control" type="text" id="socialOfUser" name="social" value="{{social}}">
+                </div>
+                <div class="my-2">
+                    <label class="form-label" for="contactOfUser">Никнейм</label>
+                    <input class="form-control" type="text" id="contactOfUser" name="contact" value="{{contact}}">
+                </div>
+                <div class="my-2">
+                    <label class="form-label" for="phoneOfUser">Телефон</label>
+                    <input class="form-control" type="text" id="phoneOfUser" name="phone" value="{{phone}}">
+                </div>
+                <div class="my-2">
+                    <input type="submit" class="btn btn-primary" value="Обновить">
+                </div>
+            </form>
+        {{/result}}
+    </div>
+</div>

@@ -1,0 +1,145 @@
+{{#result}}
+    <form name="updPost" action="/admin/posts/update/{{_id}}" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col">
+                <label class="form-label" for="titleOfPost">Название поста</label>
+                <input type="text" id="titleOfPost" class="form-control" value="{{title}}" name="title">
+            </div>
+            <div class="col">
+                <label class="form-label" for="typeOfPost">Тип поста</label>
+                <select name="type" class="form-control" id="typeOfPost">
+                    <option value="">Укажите тип записи</option>
+                    <option value="offers">Предложение</option>
+                    <option value="services">Услуга</option>
+                    <option value="vacancies">Вакансия</option>
+                    <option value="articles">Статья</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="input-group my-2">
+                    <label class="input-group-text" for="socialOfPost">Соц сеть клиента</label>
+                    <input type="text" class="form-control" id="socialOfPost" name="social" value="{{social}}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group my-2">
+                    <label class="input-group-text" for="contactOfPost">Никнейм</label>
+                    <input type="text" class="form-control" id="contactOfPost" name="contact" value="{{contact}}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xl-8">
+                <div class="row my-2">
+                    <div class="col col-xl-4">
+                        {{#image}}
+                            <img class="img-thumbnail" src="/{{path}}" alt="{{filename}}">
+                        {{/image}}
+                    </div>
+                    <div class="col col-xl-8">
+                        <div class="row">
+                            {{#gallery}}
+                                <div class="col col-xl-4 position-relative pt-4" data-image="{{filename}}">
+                                    <img class="img-thumbnail w-100" src="/{{path}}" alt="{{filename}}">
+                                    <div class="position-absolute top-0 end-0 ">
+                                        <button type="button" class="btn-close" aria-label="Close" onclick="delGallery('{{filename}}')"></button>
+                                    </div>
+                                </div>
+                            {{/gallery}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2">
+                    <label for="textOfPost">Описание</label>
+                    <textarea id="textOfPost" class="form-control" name="desc">{{desc}}</textarea>
+                </div>
+                <div class="my-2">
+                    <label for="textOfPost">Текст</label>
+                    <textarea id="textOfPost" class="form-control" name="text" rows="20">{{text}}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check-label">
+                            <label class="form-check-label" for="pubOfPost">Опубликован</label>
+                            <input class="form-check-input" type="checkbox" id="pubOfPost" {{#if published}}checked{{/if}}>
+                            <input type="hidden" name="published" value="{{published}}" >
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span>Автор:</span> <br>
+                        <a href="{{link}}">{{contact}}</a>
+                    </div>
+                    <div class="col">
+                        <span >Создан</span> <br>
+                        <span>{{createdAt}}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col col-xl-4">
+                <table class="table">
+                    {{#fields}}
+                            <tr>
+                                <td>
+                                    <label for="{{name}}OfPost">{{name}}</label>
+                                </td>
+                                <td>
+                                    <input class="form-control" id="{{name}}OfPost" placeholder="{{name}}" name="{{name}}" value="{{value}}">
+                                </td>
+                            </tr>
+                    {{/fields}}
+                </table>
+                <div>
+                    <div class="mb-2">
+                        <label class="form-label" for="imageOfPost">Заменить главное изображение</label>
+                        <input class="form-control" type="file" accept="image/png, image/jpeg" id="imageOfPost" name="image">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label" for="galleryOfPost">Добавить новое фото в галерею</label>
+                        <input class="form-control" type="file" accept="image/png, image/jpeg" name="gallery" id="galleryOfPost" multiple>
+                        <input type="hidden" name="oldGallery" id="oldGallery">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end my-2">
+                    <button class="btn btn-primary me-2" type="submit">Обновить</button>
+                    <button class="btn btn-danger" type="button" id="delPost">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form name="delPost" action="/admin/posts/delete/{{_id}}" method="post"></form>
+
+    <script>
+        document.getElementById('typeOfPost').value = "{{type}}"
+
+        document.getElementById('delPost').onclick = () => {
+            document.forms.delPost.submit()
+        }
+
+        document.getElementById('pubOfPost').onchange = function () {
+            document.querySelector('input[name=published]').value = this.checked
+        }
+
+        let gallery = [
+            {{#gallery}}
+                "{{filename}}",
+            {{/gallery}}
+        ]
+
+        document.getElementById('oldGallery').value = gallery
+
+        function updGallery() {
+            document.getElementById('oldGallery').value = gallery
+        }
+
+        function delGallery(id) {
+            gallery = gallery.filter(img => img !== id)
+            document.querySelector(`div[data-image='${id}']`).remove()
+            updGallery()
+        }
+
+    </script>
+{{/result}}

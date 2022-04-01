@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col col-xl-4">
+        {{>menu/admin}}
+    </div>
+    <div class="col col-xl-8" id="field">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">СоцСеть</th>
+                <th scope="col">Контакт</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Права</th>
+                <th scope="col">Подробнее</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#result}}
+                <tr class="{{#if isAdmin}}table-primary{{/if}}">
+                    <td>{{social}}</td>
+                    <td>{{contact}}</td>
+                    <td>{{username}}</td>
+                    <td>{{isAdmin}}</td>
+                    <td><a href="/admin/users/{{username}}">Подробнее</a></td>
+                </tr>
+            {{/result}}
+            </tbody>
+        </table>
+    </div>
+</div>

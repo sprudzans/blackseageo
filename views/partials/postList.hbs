@@ -1,0 +1,23 @@
+<div class="row mb-2">
+    {{#result}}
+        <div class="col col-xl-6">
+            <div class="row g-0 border flex-nowrap rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-12 col-lg-8 p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{{category}}</strong>
+                    <h3 class="mb-0">{{title}}</h3>
+                    <div class="mb-1 text-muted">{{created}}</div>
+                    <p class="card-text mb-auto text-truncate">{{desc}}</p>
+                    <a href="/posts/{{_id}}" class="stretched-link">Читать...</a>
+                </div>
+                    {{#if image}}
+                        <div class="col-lg-4 d-none d-lg-block">
+                            {{#image}}
+                                <img class="img-fluid h-md-250" src="/{{path}}" alt="{{title}}">
+                            {{/image}}
+                        </div>
+                    {{/if}}
+            </div>
+        </div>
+    {{/result}}
+</div>
+

@@ -1,0 +1,253 @@
+<form name="addPost" action="/posts" method="post" enctype="multipart/form-data">
+    <div class="row my-2">
+        <div class="col-12 col-xl-4">
+            <label class="form-label" for="titleOfPost">Название записи</label>
+            <input class="form-control" id="titleOfPost" name="title" type="text" required>
+        </div>
+        <div class="col-12 col-xl-4">
+            <label class="form-label" for="authorOfPost">Cсылка для связи с вами</label>
+            <div class="input-group">
+                <select class="form-select" name="social">
+                    <option value="tg">Telegram</option>
+                    <option value="fb">Facebook</option>
+                    <option value="ot">Другая</option>
+                </select>
+                <input class="form-control" type="text" id="authorOfPost" name="contact"
+                       placeholder="@n.surname" value="blackseageo" required>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <label class="form-label" for="authorOfPost">Ваш номер телефона</label>
+            <div class="input-group">
+                <span class="input-group-text">+995</span>
+                <input class="form-control" type="text" name="phone" placeholder="555 000 000">
+            </div>
+        </div>
+    </div>
+    {{#if offer}}
+        <input type="hidden" name="type" value="offers">
+        <div class="row my-2">
+            <div class="col-12 col-xl-4">
+                <select class="form-select" name="deal">
+                    <option value="sell">Продажа</option>
+                    <option value="rent">Аренда</option>
+                </select>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="amount" placeholder="Цена">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="square" placeholder="Площадь">
+                    <span class="input-group-text">кв.м</span>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <input class="form-control mb-3" type="text" name="address" placeholder="Адрес">
+            </div>
+        </div>
+    {{/if}}
+    {{#if article}}
+        <input type="hidden" name="type" value="articles">
+        <div class="row my-2">
+            <div class="col-12 col-xl-4">
+                <label for="imageOfPost" class="form-label">Главное изображение поста</label>
+                <input class="form-control" type="file" accept="image/png, image/jpeg" name="image" id="imageOfPost">
+            </div>
+            <div class="col-12 col-xl-4">
+                <label for="galleryOfPost" class="form-label">Прикрепить изображения</label>
+                <input class="form-control" type="file" accept="image/png, image/jpeg" name="gallery" id="galleryOfPost" multiple>
+            </div>
+            <div class="col-12 col-xl-4">
+                <label class="form-label" for="catOfPost">Категория</label>
+                <select class="form-select" id="catOfPost" name="category">
+                    <option value="money">Деньги</option>
+                    <option value="products">Продукты</option>
+                    <option value="transport">Транспорт</option>
+                    <option value="city">Город</option>
+                    <option value="home">Жилье</option>
+                    <option value="other">Другое</option>
+                </select>
+            </div>
+        </div>
+    {{/if}}
+    {{#if vacancy}}
+        <input type="hidden" name="type" value="vacancies">
+        <div class="my-2">
+            <label class="form-label" for="salaryOfPost">Зарплата</label>
+            <div class="input-group mb-3">
+                <select class="form-select" name="currency">
+                    <option value="">Валюта</option>
+                    <option value="gel">GEL</option>
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                </select>
+                <input class="form-control" type="text" id="salaryOfPost" name="salary" placeholder="1000">
+            </div>
+        </div>
+    {{/if}}
+    {{#if service}}
+        <input type="hidden" name="type" value="services">
+        <div class="my-2">
+            <label class="form-label" for="priceOfPost">Стоимость</label>
+            <div class="input-group mb-3">
+                <select class="form-select" name="currency">
+                    <option value="">Валюта</option>
+                    <option value="gel">GEL</option>
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                </select>
+                <input class="form-control" type="text" id="priceOfPost" name="price" placeholder="1000">
+            </div>
+        </div>
+    {{/if}}
+    <div class="my-2">
+        <label class="form-label" for="descOfPost">Краткое описание</label>
+        <textarea class="form-control" id="descOfPost" name="desc" required></textarea>
+    </div>
+
+    <div class="my-2">
+        <label class="form-label" for="textOfPost"><i class="bi bi-pencil-square me-2"></i>Полное описание</label>
+        <div class="my-2">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'h5')">Title</button>
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'h6')">Subtitle
+                    </button>
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'b')"><b>Bold</b></button>
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'i')"><i>Italic</i></button>
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'ins')"><ins>Ins</ins>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-light" onclick="addTag(this, 'del')"><del>Del</del>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <textarea class="form-control" id="textOfPost" name="text" rows="20" required></textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+        <input type="submit" class="btn btn-primary my-2" value="Отправить">
+    </div>
+</form>
+
+<div class="placeholder-glow d-none">
+    <h6>Предпросмотр</h6>
+    <div id="preview placeholder col-6">
+        <span id="result "></span>
+    </div>
+    <div class="clearfix"></div>
+    <hr>
+    <p>Галерея</p>
+    <div id="gallery" class="d-flex">
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col col-xl-9">
+        <h4 class="display-4">Предпросмотр</h4>
+        <div class="placeholder-glow">
+            <h5 class="placeholder col-8" id="preTitle"></h5>
+            <div class="row mb-2">
+                <div class="col-12 col-xl-3" >
+                    <div class="placeholder w-100 h-100" id="preImage"></div>
+                </div>
+                <div class="col-12 col-xl-9">
+                    <div class="placeholder w-100 h-100" id="preDesc"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="placeholder w-100 h-250" id="preText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-xl-3">
+        {{>sidebar}}
+    </div>
+</div>
+
+
+<script>
+    document.forms.addPost.text.onchange = function () {
+        document.getElementById('result').innerHTML = this.value.replace("\n", "<br>")
+    }
+
+    document.getElementById('imageOfPost').onchange = async function () {
+        const element = document.createElement('img')
+        element.classList.add('img-fluid', 'w-100', 'h-100')
+        readFile(this.files[0], element)
+        const parent = document.getElementById('preImage')
+        parent.innerHTML = ""
+        parent.classList.remove('placeholder')
+        parent.appendChild(element)
+    }
+
+    document.getElementById('galleryOfPost').onchange = function () {
+        Array.from(this.files).forEach(fl => {
+            const element = document.createElement('img')
+            element.classList.add('img-thumbnail', 'm-2', 'w-25', 'h-25')
+            readFile(fl, element)
+            document.getElementById('gallery').appendChild(element)
+        })
+    }
+
+    document.getElementById('titleOfPost').onchange = function () {
+        if (this.value !== '') {
+            document.getElementById('preTitle').innerHTML = this.value
+            document.getElementById('preTitle').classList.remove('placeholder')
+        } else {
+            document.getElementById('preTitle').classList.add('placeholder')
+        }
+    }
+
+    document.getElementById('descOfPost').onchange = function () {
+        if (this.value !== '') {
+            document.getElementById('preDesc').innerHTML = this.value
+            document.getElementById('preDesc').classList.remove('placeholder')
+        } else {
+            document.getElementById('preDesc').classList.add('placeholder')
+        }
+    }
+
+    document.getElementById('textOfPost').onchange = function () {
+        if (this.value !== '') {
+            document.getElementById('preText').innerHTML = this.value
+            document.getElementById('preText').classList.remove('placeholder')
+        } else {
+            document.getElementById('preText').classList.add('placeholder')
+        }
+    }
+
+    document.getElementById('catOfPost').value = "{{category}}";
+
+
+    function addTag(button, tag) {
+        if (!button.classList.contains('btn-dark')) {
+            button.classList.add('btn-dark')
+            document.forms.addPost.text.value += `<${tag}>`
+        } else {
+            button.classList.remove('btn-dark')
+            document.forms.addPost.text.value += `</${tag}>`
+        }
+    }
+
+    function readFile (file, image) {
+        if (FileReader) {
+            const fr = new FileReader();
+            fr.onload = function () {
+                image.src = fr.result;
+            }
+            fr.readAsDataURL(file);
+        } else {
+            return ""
+        }
+    }
+</script>
